@@ -1,4 +1,4 @@
-<h1> Please find the attached Images in architecture-diagram.png folder in present image the the loadbalencer is working fine and ASG is also workig properlly </h1>
+<h1> Please find the attached Images in architecture-diagram.png folder in present image the loadbalencer is working fine and ASG is also workig properlly </h1>
 
 <h1> 🚀 Project Overview </h1>
 This project demonstrates the deployment of a Highly Available and Fault-Tolerant web application using AWS core services. The architecture is designed to handle variable traffic loads automatically and ensure zero downtime through self-healing mechanisms.
