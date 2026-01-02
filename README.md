@@ -1,49 +1,93 @@
-<h1> Please find the attached Images in architecture-diagram.png folder in present image the loadbalencer is working fine and ASG is also workig properlly </h1>
+# Highly Available & Fault-Tolerant Web Application on AWS
 
-<h1> 🚀 Project Overview </h1>
-This project demonstrates the deployment of a Highly Available and Fault-Tolerant web application using AWS core services. The architecture is designed to handle variable traffic loads automatically and ensure zero downtime through self-healing mechanisms.
+## 📌 Project Overview
+This project demonstrates the deployment of a **Highly Available and Fault-Tolerant web application** using **AWS core services**.  
+The architecture is designed to automatically handle **variable traffic loads**, provide **zero downtime**, and ensure **high availability** through AWS-managed self-healing mechanisms.
 
-<h1> 🏗️ Architecture </h1>
-The infrastructure is built across multiple Availability Zones (AZs) to prevent a single point of failure.
+---
 
-Application Load Balancer (ALB): Distributes incoming HTTP traffic across multiple healthy EC2 instances.
+## 🏗️ Architecture Overview
+The application follows a multi-tier architecture and leverages the following AWS services:
 
-Auto Scaling Group (ASG): Automatically maintains the desired instance count and scales out/in based on CPU utilization.
+- **Amazon VPC** – Isolated network environment
+- **Public & Private Subnets** – Secure traffic segregation
+- **Application Load Balancer (ALB)** – Distributes incoming traffic across instances
+- **Auto Scaling Group (ASG)** – Automatically scales EC2 instances based on demand
+- **Amazon EC2** – Hosts the web application
+- **Target Groups** – Health checks and traffic routing
+- **Security Groups** – Controlled inbound and outbound access
 
-EC2 Instances: Web servers hosted on Amazon Linux, bootstrapped with Nginx.
+---
 
-Target Group: Monitors instance health on Port 80 to ensure traffic is only routed to functional nodes.
+## 🚀 Key Features
+- High Availability across multiple Availability Zones
+- Fault tolerance using Auto Scaling and health checks
+- Automatic scaling based on traffic load
+- Zero downtime during instance failure
+- Secure architecture with private subnets
+- Load-balanced traffic distribution
 
+---
 
-<h1> Project Structure </h1>
+## 🔧 AWS Services Used
+| Service | Purpose |
+|-------|--------|
+| EC2 | Compute resources for web application |
+| ALB | Load balancing HTTP traffic |
+| Auto Scaling | Automatic scaling and self-healing |
+| VPC | Network isolation |
+| Security Groups | Network-level security |
+| IAM | Secure access and permissions |
 
-AWS-Scalable-Web-Architecture/
-├── README.md                 # Project documentation
-├── architecture-diagram.png  # Visual representation of the setup
-├── images/                   # Screenshots of AWS Console (Healthy Targets, ALB URL)
-└── scripts/
-    └── user-data.sh          # Automation script for server setup
-    
+---
 
-<h1>⚙️ Setup & Configuration</h1>
+## ⚙️ Deployment Steps (High Level)
+1. Create a VPC with public and private subnets  
+2. Launch EC2 instances in private subnets  
+3. Configure Application Load Balancer in public subnets  
+4. Create Target Group and register EC2 instances  
+5. Configure Auto Scaling Group  
+6. Deploy web application using User Data script  
+7. Test application using Load Balancer DNS  
 
-To ensure every new instance launched by the ASG is ready to serve traffic, I used the following bootstrap script:
-#!/bin/bash
-sudo yum update -y
-sudo amazon-linux-extras install nginx1 -y
-sudo systemctl start nginx
-sudo systemctl enable nginx
-    <h2>
-    Note: This automation solves the "502 Bad Gateway" issue by ensuring the web server starts immediately upon instance launch.</h2>
+---
 
-<h1> Load Balancer & Health Checks</h1>
-Configured a Target Group on Port 80.
-Defined Health Checks to monitor the root path (/).
-Attached the Target Group to an Application Load Balancer to provide a single DNS endpoint for users.    
+## 🧪 Testing & Validation
+- Access application using **ALB DNS name**
+- Stop an EC2 instance manually to verify self-healing
+- Increase load to validate auto-scaling behavior
+- Monitor health checks in Target Groups
 
-<h1> 🧪 Testing & Validation </h1>
-Load Balancing Verification: Confirmed that the Application Load Balancer (ALB) successfully distributes incoming traffic across all healthy registered targets. By refreshing the ALB DNS endpoint, I verified that requests are being routed to different instances, ensuring no single server is overloaded.
+---
 
-Auto Scaling (Scale-Out) Test: Simulated a high-traffic scenario by increasing the CPU utilization on the instances using the yes > /dev/null & command. The CloudWatch alarms successfully triggered a scale-out event, and the Auto Scaling Group (ASG) automatically launched new instances to handle the increased load.
+## 📈 Benefits
+- Improved reliability and uptime
+- Automatic recovery from failures
+- Cost optimization using dynamic scaling
+- Production-ready AWS architecture
 
-High Availability & Self-Healing: Tested the infrastructure's resilience by manually terminating a running EC2 instance. The ASG immediately detected the "Unhealthy" state and provisioned a new instance to maintain the Desired Capacity. The application remained accessible via the ALB URL throughout this process, proving zero downtime.
+---
+
+## 🧠 Learning Outcomes
+- Understanding of AWS High Availability design
+- Hands-on experience with Load Balancers and Auto Scaling
+- Real-world fault-tolerant system implementation
+- AWS networking and security best practices
+
+---
+
+## 📌 Use Cases
+- Production web applications
+- Enterprise-grade systems
+- Scalable cloud-native applications
+
+---
+
+## 📄 Author
+**Arpit Singh**  
+AWS | DevOps | Cloud Infrastructure
+
+---
+
+## ✅ Conclusion
+This project showcases a robust AWS architecture capable of handling real-world traffic demands while ensuring high availability, scalability, and fault tolerance.
